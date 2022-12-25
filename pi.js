@@ -4,21 +4,18 @@ let dotCountEl = document.getElementById("dotCount");
 let piEl = document.getElementById("pi");
 let differenceEl = document.getElementById("difference");
 
-let drawRect = (x, y, width, height, color) =>
-{
+let drawRect = (x, y, width, height, color) => {
     ctx.trokeStyle = color
     ctx.rect(x, y, widwth, height)
     ctx.stroke()
 };
 
-let fillRect = (x, y, width, height, color) =>
-{
+let fillRect = (x, y, width, height, color) => {
     ctx.fillStyle = color;
     ctx.fillRect(x, y, width, height);
 };
 
-let drawCircle = (x, y, radius, color) =>
-{
+let drawCircle = (x, y, radius, color) => {
     ctx.beginPath();
     ctx.strokeStyle = color;
     ctx.lineWidth = 10;
@@ -26,8 +23,7 @@ let drawCircle = (x, y, radius, color) =>
     ctx.stroke();
 };
 
-let fillCircle = (x, y, radius, color) =>
-{
+let fillCircle = (x, y, radius, color) => {
     ctx.fillStyle = color;
     ctx.beginPath();
     ctx.arc(x, y, radius, 0, 2 * Math.PI, false);
@@ -36,8 +32,7 @@ let fillCircle = (x, y, radius, color) =>
 
 let speed = 100;
 
-let gameLoop = () =>
-{
+let gameLoop = () => {
     setInterval(drawAndUpdate, 1000 / speed);
 };
 
@@ -55,35 +50,31 @@ let corcleradius = canvas.width / 2;
 
 let dotCountInCircle = 0;
 
-let createNewDot = () =>
-{
+let createNewDot = () => {
     let x = Math.random() * canvas.width;
     let y = Math.random() * canvas.height;
-    allDots.push({x:x, y:y,})
+    allDots.push({ x: x, y: y, })
     let xDistanceToCenter = Math.abs(canvas.width / 2 - x);
     let yDistanceToCenter = Math.abs(canvas.height / 2 - y);
     let distance = Math.sqrt(
         xDistanceToCenter * xDistanceToCenter +
-          yDistanceToCenter * yDistanceToCenter
+        yDistanceToCenter * yDistanceToCenter
     );
-    if(distance < canvas.width / 2)
-    {
+    if (distance < canvas.width / 2) {
         dotCountInCircle++;
     }
-    fillCircle(x,y, dotRadius, dotColor);
+    fillCircle(x, y, dotRadius, dotColor);
 };
 
-let makeEstimationToPi = () =>
-{
+let makeEstimationToPi = () => {
     let pi = (dotCountInCircle * 4) / allDots.length
     dotCountEl.innerText = "Dot count: " + allDots.length;
     piEl.innerText = "Estimated PI: " + pi;
     differenceEl.innerText =
-      "Difference between real PI: " + Math.abs(Math.PI - pi);
+        "Difference between real PI: " + Math.abs(Math.PI - pi);
 };
 
-let drawAndUpdate = () =>
-{
+let drawAndUpdate = () => {
     createNewDot();
     makeEstimationToPi();
     drawCircle(canvas.width / 2, canvas.height / 2, circleRadius, shapeColor);
